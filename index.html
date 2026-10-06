@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beautiful Spots in the Philippines</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #eaf2ef;
+    --muted: #93a6a0;
+    --bg: #080e0c;
+    --card: #111a17;
+    --line: rgba(255,255,255,.08);
+    --accent: #19c2a8;
+    --accent-dark: #0f9d8a;
+    --radius: 22px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* ---------- NAV ---------- */
+  nav {
+    position: fixed;
+    top: 14px; left: 50%;
+    transform: translateX(-50%);
+    width: min(1100px, calc(100% - 28px));
+    z-index: 100;
+    background: rgba(17,26,23,.75);
+    border: 1px solid var(--line);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 100px;
+    padding: 10px 14px 10px 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 8px 30px rgba(0,0,0,.5);
+  }
+  .logo { font-weight: 600; font-size: 20px; letter-spacing: -.3px; }
+  .logo span { color: var(--accent); }
+  nav ul { display: flex; gap: 4px; list-style: none; flex-wrap: wrap; justify-content: center; }
+  nav ul a {
+    display: block;
+    text-decoration: none;
+    color: var(--ink);
+    font-size: 14px;
+    padding: 8px 14px;
+    border-radius: 100px;
+    transition: .25s;
+  }
+  nav ul a:hover { background: rgba(255,255,255,.12); }
+  nav ul li:last-child a { background: var(--accent); color: #04120f; font-weight: 500; }
+  nav ul li:last-child a:hover { background: #3fe0c7; }
+
+  /* ---------- HERO ---------- */
+  header {
+    margin: 14px;
+    border-radius: 30px;
+    min-height: 92vh;
+    padding: 160px 6vw 80px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(180deg, rgba(0,0,0,.45), rgba(4,14,12,.88)),
+      url("https://carmen-bohol.gov.ph/wp-content/uploads/2024/03/Chocolate-Hills-Carmen-1024x450.png") center/cover no-repeat,
+      linear-gradient(135deg, #0b5f54, #0f3a5e);
+  }
+  header h1 {
+    font-size: clamp(40px, 7vw, 88px);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    max-width: 850px;
+  }
+  header h3 {
+    display: inline-block;
+    width: fit-content;
+    margin-top: 26px;
+    font-size: 15px;
+    font-weight: 400;
+    background: rgba(255,255,255,.1);
+    border: 1px solid rgba(255,255,255,.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 8px 20px;
+    border-radius: 100px;
+  }
+  header p { margin-top: 20px; font-size: 20px; font-weight: 300; max-width: 520px; opacity: .9; }
+
+  /* ---------- MAIN ---------- */
+  main { max-width: 1150px; margin: 0 auto; padding: 90px 20px 40px; }
+
+  #intro { text-align: center; max-width: 720px; margin: 0 auto 80px; }
+  #intro h2 { font-size: clamp(30px, 4vw, 44px); font-weight: 500; letter-spacing: -1px; margin-bottom: 14px; }
+  #intro h2::before {
+    content: "";
+    display: block;
+    width: 48px; height: 4px;
+    background: var(--accent);
+    border-radius: 4px;
+    margin: 0 auto 18px;
+    box-shadow: 0 0 18px var(--accent);
+  }
+  #intro p { color: var(--muted); font-size: 18px; font-weight: 300; }
+
+  /* ---------- DESTINATION CARDS ---------- */
+  article {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 40px;
+    align-items: center;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    padding: 20px;
+    margin-bottom: 36px;
+    box-shadow: 0 10px 40px rgba(0,0,0,.4);
+    transition: transform .35s, box-shadow .35s, border-color .35s;
+  }
+  article:hover {
+    transform: translateY(-6px);
+    border-color: rgba(25,194,168,.45);
+    box-shadow: 0 20px 55px rgba(0,0,0,.6), 0 0 40px rgba(25,194,168,.12);
+  }
+  article:nth-of-type(even) { grid-template-columns: 1fr 1.15fr; }
+
+  figure { position: relative; overflow: hidden; border-radius: 20px; background: #1a2723; }
+  figure img {
+    display: block;
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    transition: transform .6s;
+  }
+  article:hover figure img { transform: scale(1.06); }
+  figcaption {
+    position: absolute;
+    left: 14px; bottom: 14px;
+    font-size: 12px;
+    color: #fff;
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 6px 14px;
+    border-radius: 100px;
+    max-width: calc(100% - 28px);
+  }
+  article h2 {
+    font-size: clamp(24px, 3vw, 34px);
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -.8px;
+    padding: 0 10px;
+    margin-bottom: 14px;
+    grid-column: 2;
+    align-self: end;
+  }
+  article:nth-of-type(even) h2 { grid-column: 1; }
+  article p { color: var(--muted); font-size: 16px; font-weight: 300; padding: 0 10px 10px; grid-column: 2; align-self: start; }
+  article:nth-of-type(even) p { grid-column: 1; }
+  article figure { grid-column: 1; grid-row: 1 / span 2; }
+  article:nth-of-type(even) figure { grid-column: 2; }
+
+  /* ---------- VIDEOS ---------- */
+  article video {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    display: block;
+    width: 100%;
+    max-height: 480px;
+    margin-top: 6px;
+    border-radius: 20px;
+    background: #000;
+    object-fit: cover;
+  }
+
+  /* ---------- CONTACT ---------- */
+  #contact {
+    margin-top: 80px;
+    text-align: center;
+    color: #fff;
+    border: 1px solid var(--line);
+    border-radius: 30px;
+    padding: 70px 24px;
+    background:
+      radial-gradient(circle at 80% 0%, rgba(25,194,168,.28), transparent 55%),
+      radial-gradient(circle at 10% 100%, rgba(27,108,168,.25), transparent 55%),
+      #0d1613;
+  }
+  #contact h2 { font-size: clamp(30px, 4vw, 44px); font-weight: 500; letter-spacing: -1px; margin-bottom: 14px; }
+  #contact address { font-style: normal; }
+  #contact address > p { font-size: 18px; font-weight: 300; opacity: .85; margin-bottom: 28px; }
+  #contact ul { list-style: none; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  #contact li a {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--ink);
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.18);
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: .25s;
+  }
+  #contact li a:hover { background: var(--accent); border-color: var(--accent); color: #04120f; transform: translateY(-3px); }
+
+  /* ---------- FOOTER ---------- */
+  footer { text-align: center; color: var(--muted); font-size: 14px; padding: 40px 20px 50px; line-height: 1.9; }
+
+  /* ---------- MOBILE ---------- */
+  @media (max-width: 860px) {
+    nav { border-radius: 24px; flex-direction: column; gap: 8px; padding: 12px; }
+    nav ul a { padding: 6px 10px; font-size: 13px; }
+    header { padding: 190px 24px 60px; min-height: 85vh; }
+    article, article:nth-of-type(even) { grid-template-columns: 1fr; gap: 14px; }
+    article figure, article:nth-of-type(even) figure { grid-column: 1; grid-row: auto; order: 0; }
+    article h2, article:nth-of-type(even) h2,
+    article p, article:nth-of-type(even) p { grid-column: 1; }
+    figure img { height: 260px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+<div class="logo">philippines<span>*</span></div>
+<ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#baguio">Baguio</a></li>
+<li><a href="#palawan">Palawan</a></li>
+<li><a href="#cebu">Cebu</a></li>
+<li><a href="#bohol">Bohol</a></li>
+<li><a href="#davao">Davao</a></li>
+<li><a href="#siargao">Siargao</a></li>
+<li><a href="#contact">Contact Us</a></li>
+</ul>
+</nav>
+
+<header>
+<h1>Beautiful Spots in the Philippines</h1>
+<h3>Louise Andrei Penafuerte &mdash; BSIT101</h3>
+<p>Discover six breathtaking destinations worth visiting.</p>
+</header>
+
+<main>
+<section id="intro">
+<h2>Introduction</h2>
+<p>The Philippines is home to some of the most stunning natural
+wonders and historic landmarks in Southeast Asia. Here is one
+must-see spot from each of six destinations.</p>
+</section>
+
+<article id="baguio">
+<h2>Baguio = Burnham Park</h2>
+<figure>
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlGhf-2xn-XBPJ56YKI8vxDzgLAtEFIIjAQVFvKIwJSyJz5aSBiqh82cKn&s=10" alt="Boats on the lake at Burnham Park in Baguio">
+<figcaption>Burnham Park, the green heart of Baguio.</figcaption>
+</figure>
+<p>A large city park in the Summer Capital of the Philippines, with a
+man-made lake where visitors can rent boats and stroll through gardens.</p>
+<video controls preload="metadata" playsinline>
+  <source src="videos/baguio.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+</article>
+
+<article id="palawan">
+<h2>Palawan = Puerto Princesa Underground River</h2>
+<figure>
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTD5eaPuHTaYoBqlURZyvhAI1INxIDtE0GY8SD40hVO803nYm6TRFZgKCYl&s=10" alt="Boat entering the dark limestone cave of the Puerto Princesa Underground River">
+<figcaption>The Puerto Princesa Subterranean River, a UNESCO World Heritage Site.</figcaption>
+</figure>
+<p>A navigable underground river that flows directly into the sea,
+winding through a limestone cave filled with stalactites and
+stalagmites.</p>
+<video controls preload="metadata" playsinline>
+  <source src="videos/palawan.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+</article>
+
+<article id="cebu">
+<h2>Cebu = Fort San Pedro</h2>
+<figure>
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4hp26O1TcJXCShUW50HxOEyTNxa-muq2pa6ON0UoO5SPcTV7BqjLBcG8&s=10" alt="Stone walls of Fort San Pedro in Cebu City">
+<figcaption>Fort San Pedro, the oldest triangular bastion fort in the country.</figcaption>
+</figure>
+<p>A Spanish-era military fortress in Cebu City, begun in 1565 and
+now a museum and park with stone walls and cannons.</p>
+<video controls preload="metadata" playsinline>
+  <source src="videos/cebu.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+</article>
+
+<article id="bohol">
+<h2>Bohol = Chocolate Hills</h2>
+<figure>
+<img src="https://carmen-bohol.gov.ph/wp-content/uploads/2024/03/Chocolate-Hills-Carmen-1024x450.png" alt="Rows of cone-shaped brown hills in Bohol">
+<figcaption>Over 1,200 cone-shaped hills that turn brown in the dry season.</figcaption>
+</figure>
+<p>More than a thousand symmetrical, cone-shaped hills spread across
+Bohol's countryside. They turn chocolate-brown in the dry season,
+giving the landmark its name.</p>
+<video controls preload="metadata" playsinline>
+  <source src="videos/bohol.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+</article>
+
+<article id="davao">
+<h2>Davao = Philippine Eagle Center</h2>
+<figure>
+<img src="https://images.gmanews.tv/webpics/2016/06/000_BM5RO_2016_06_15_17_25_47.jpg" alt="Philippine eagle perched in an enclosure">
+<figcaption>The Philippine eagle, the country's national bird.</figcaption>
+</figure>
+<p>A conservation center dedicated to breeding and protecting the
+critically endangered Philippine eagle.</p>
+<video controls preload="metadata" playsinline>
+  <source src="videos/davao.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+</article>
+
+<article id="siargao">
+<h2>Siargao = Cloud 9</h2>
+<figure>
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFY8v4mr9XFyY2CXIGlmSfRYvu4YCSqZdmw1sXANhnKA&s=10" alt="Surfer riding a wave at Cloud 9, Siargao">
+<figcaption>Cloud 9, Siargao's world-renowned surf break.</figcaption>
+</figure>
+<p>Known as the surfing capital of the Philippines, Siargao is famous
+for its Cloud 9 surf break and laid-back island atmosphere.</p>
+<video controls preload="metadata" playsinline>
+  <source src="videos/siargao.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
+</article>
+
+<section id="contact">
+<h2>Contact Us</h2>
+<address>
+<p><strong>Louise Andrei Penafuerte</strong> &mdash; BSIT101</p>
+<ul>
+<li><a href="https://www.instagram.com/louise.andrei.travels" target="_blank" rel="noopener">Instagram &middot; @louise.andrei.travels</a></li>
+<li><a href="https://x.com/louise_andrei_ph" target="_blank" rel="noopener">Twitter / X &middot; @louise_andrei_ph</a></li>
+</ul>
+</address>
+</section>
+</main>
+
+<footer>
+<p>Images and information gathered from personal research.</p>
+<p>Made with creativity for the Philippines &mdash; IT101</p>
+</footer>
+
+<script>
+(function () {
+  let ctx, noiseBuf;
+
+  function init() {
+    ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+    if (ctx.state === 'suspended') ctx.resume();
+
+    if (!noiseBuf) {
+      noiseBuf = ctx.createBuffer(1, ctx.sampleRate * 0.08, ctx.sampleRate);
+      const d = noiseBuf.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    }
+  }
+
+  function thock(time, volume, pitch) {
+    // 1. deep body: a low tone that drops quickly
+    const osc = ctx.createOscillator();
+    const oGain = ctx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(pitch, time);
+    osc.frequency.exponentialRampToValueAtTime(pitch * 0.45, time + 0.09);
+    oGain.gain.setValueAtTime(volume, time);
+    oGain.gain.exponentialRampToValueAtTime(0.001, time + 0.12);
+    osc.connect(oGain).connect(ctx.destination);
+    osc.start(time);
+    osc.stop(time + 0.13);
+
+    // 2. muffled impact: noise with the highs rolled off
+    const noise = ctx.createBufferSource();
+    noise.buffer = noiseBuf;
+    const lp = ctx.createBiquadFilter();
+    lp.type = 'lowpass';
+    lp.frequency.value = 900;
+    const nGain = ctx.createGain();
+    nGain.gain.setValueAtTime(volume * 0.9, time);
+    nGain.gain.exponentialRampToValueAtTime(0.001, time + 0.05);
+    noise.connect(lp).connect(nGain).connect(ctx.destination);
+    noise.start(time);
+    noise.stop(time + 0.06);
+  }
+
+  function playThock() {
+    init();
+    const t = ctx.currentTime;
+    const v = 1 + (Math.random() - 0.5) * 0.12; // small variation
+    thock(t, 0.9, 150 * v);          // key down: deep thock
+    thock(t + 0.085, 0.25, 200 * v); // key up: soft thud
+  }
+
+  document.querySelectorAll('nav a, .logo, #contact a').forEach(function (el) {
+    el.addEventListener('click', playThock);
+  });
+})();
+</script>
+
+</body>
+</html>
